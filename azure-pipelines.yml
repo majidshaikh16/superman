@@ -21,9 +21,10 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build and push an image to docker hub
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/front-end/superman/Dockerfile'
-        tags: |
+         containerRegistry: 'majidshaikh16/dockerhub'
+         command: 'buildAndPush'
+         Dockerfile: '$(Build.SourcesDirectory)/front-end/superman/Dockerfile'
+         tags: |
           superman:$(tag)
