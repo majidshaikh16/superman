@@ -24,7 +24,7 @@ stages:
       displayName: Build and push an image to docker hub
       inputs:
          containerRegistry: 'majidshaikh16/dockerhub'
+         repository: 'majidshaikh16/superman'
          command: 'buildAndPush'
          Dockerfile: '$(Build.SourcesDirectory)/front-end/superman/Dockerfile'
-         tags: |
-          superman:$(tag)
+         tags: '$(tag)'
