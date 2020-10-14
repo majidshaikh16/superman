@@ -8,36 +8,23 @@ trigger:
 resources:
 - repo: self
 
-pool:
-  vmImage: 'ubuntu-latest'
-
 variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: 'Build_And_Test'
-  displayName: 'Build_docker_image'
+- stage: Build
+  displayName: Build image
   jobs:  
-  - job: 'Build_And_Test'
-    displayName: 'Build_And_Test'
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
     steps:
     - task: Docker@2
       displayName: Build and push an image to docker hub
       inputs:
          containerRegistry: 'majidshaikh16/dockerhub'
          repository: 'majidshaikh16/superman'
-         command: build
+         command: 'buildAndPush'
          Dockerfile: '$(Build.SourcesDirectory)/front-end/superman/Dockerfile'
          tags: '$(tag)'
-- stage: 'Deploy_To_UAT'
-  displayName: 'deploying_to_UAT'
-  jobs:
-    - job: 'Deploy_To_UAT'
-      dependsOn: 'Build_And_Test'
-      displayName: 'Build_And_Test'
-      steps:
-        - task: Docker@2
-          inputs:
-            containerRegistry: 'majidshaikh16/dockerhub'
-            repository: 'majidshaikh16/superman'
-            command: 'push'
