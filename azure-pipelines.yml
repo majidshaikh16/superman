@@ -11,20 +11,50 @@ resources:
 variables:
   tag: '$(Build.BuildId)'
 
+pool:
+  vmImage: 'ubuntu-latest'
+
 stages:
-- stage: Build
-  displayName: Build image
-  jobs:  
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to docker hub
-      inputs:
-         containerRegistry: 'majidshaikh16/dockerhub'
-         repository: 'majidshaikh16/superman'
-         command: 'buildAndPush'
-         Dockerfile: '$(Build.SourcesDirectory)/front-end/superman/Dockerfile'
-         tags: '$(tag)'
+  - stage: BuildAndTest
+    displayName: Build and test
+    jobs:
+      - job: BuildImage
+        displayName: Build docker image
+        steps:
+          - bash: echo starting to build superman docker image
+          - task: Docker@2
+            displayName: Build and push an image to docker hub
+            inputs:
+              containerRegistry: 'majidshaikh16/dockerhub'
+              repository: 'majidshaikh16/superman'
+              command: 'buildAndPush'
+              Dockerfile: '$(Build.SourcesDirectory)/front-end/superman/Dockerfile'
+              tags: '$(tag)'
+          - bash: echo image build successfull majidshaikh16/superman:${tag}
+  - stage: PushImage
+    displayName: Pushing the image to docker hub
+    dependsOn: BuildAndTest
+    jobs:
+      - job: PushImage
+        displayName: Push docker image
+        steps:
+          - bash: echo starting to push the docker image majidshaikh16/superman:${tag}
+          - bash: echo pushed the docker image majidshaikh16/superman:${tag}
+
+# stages:
+# - stage: Build
+#   displayName: Build image
+#   jobs:  
+#   - job: Build
+#     displayName: Build
+#     pool:
+#       vmImage: 'ubuntu-latest'
+#     steps:
+#     - task: Docker@2
+#       displayName: Build and push an image to docker hub
+#       inputs:
+#          containerRegistry: 'majidshaikh16/dockerhub'
+#          repository: 'majidshaikh16/superman'
+#          command: 'buildAndPush'
+#          Dockerfile: '$(Build.SourcesDirectory)/front-end/superman/Dockerfile'
+#          tags: '$(tag)'
