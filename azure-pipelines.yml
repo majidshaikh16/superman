@@ -30,6 +30,7 @@ stages:
               command: 'build'
               Dockerfile: '$(Build.SourcesDirectory)/front-end/superman/Dockerfile'
               tags: $(Build.BuildId)
+              arguments: '--build-arg -t $(containerRegistry)/$(imageRepository):$(Build.BuildId)'
           - bash: echo image build successful majidshaikh16/superman:$(Build.BuildId)
   - stage: PushImage
     displayName: Pushing the image to docker hub
