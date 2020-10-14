@@ -29,7 +29,7 @@ stages:
               repository: 'majidshaikh16/superman'
               command: 'build'
               Dockerfile: '$(Build.SourcesDirectory)/front-end/superman/Dockerfile'
-              tags: '$(tag)'
+              tags: $(imageTag)
           - bash: echo image build successful majidshaikh16/superman:$(tag)
   - stage: PushImage
     displayName: Pushing the image to docker hub
@@ -44,6 +44,7 @@ stages:
               containerRegistry: 'majidshaikh16/dockerhub'
               repository: 'majidshaikh16/superman'
               command: 'push'
+              tags: $(imageTag)
           - bash: echo pushed the docker image majidshaikh16/superman:$(tag)
 
 # stages:
