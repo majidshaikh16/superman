@@ -40,12 +40,10 @@ stages:
         steps:
           - bash: echo starting to push the docker image majidshaikh16/superman:${tag}
           - task: Docker@2
-            displayName: Pushing an image to docker hub
             inputs:
               containerRegistry: 'majidshaikh16/dockerhub'
               repository: 'majidshaikh16/superman'
               command: 'push'
-              tags: '$(tag)'
           - bash: echo pushed the docker image majidshaikh16/superman:$(tag)
 
 # stages:
