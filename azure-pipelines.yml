@@ -21,7 +21,7 @@ stages:
       - job: BuildImage
         displayName: Build docker image
         steps:
-          - bash: echo starting to build superman docker image
+          - bash: echo starting to build superman docker image majidshaikh16/superman:$(Build.BuildId)
           - task: Docker@2
             displayName: Building an image to docker hub
             inputs:
@@ -30,7 +30,7 @@ stages:
               command: 'build'
               Dockerfile: '$(Build.SourcesDirectory)/front-end/superman/Dockerfile'
               tags: $(Build.BuildId)
-          - bash: echo image build successful majidshaikh16/superman:$(tag)
+          - bash: echo image build successful majidshaikh16/superman:$(Build.BuildId)
   - stage: PushImage
     displayName: Pushing the image to docker hub
     dependsOn: BuildAndTest
@@ -38,14 +38,14 @@ stages:
       - job: PushImage
         displayName: Push docker image
         steps:
-          - bash: echo starting to push the docker image majidshaikh16/superman:${tag}
+          - bash: echo starting to push the docker image majidshaikh16/superman:$(Build.BuildId)
           - task: Docker@2
             inputs:
               containerRegistry: 'majidshaikh16/dockerhub'
               repository: 'majidshaikh16/superman'
               command: 'push'
               tags: $(Build.BuildId)
-          - bash: echo pushed the docker image majidshaikh16/superman:$(tag)
+          - bash: echo pushed the docker image majidshaikh16/superman:$(Build.BuildId)
 
 # stages:
 # - stage: Build
