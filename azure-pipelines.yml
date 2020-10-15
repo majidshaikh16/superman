@@ -29,7 +29,7 @@ stages:
             displayName: 'Install Dependencies'
           - script: |
               cd $(Build.SourcesDirectory)/front-end/superman/
-              npm run ng test --watch=false --code-coverage
+              npm run ng test --watch=false --code-coverage --browsers=ChromeHeadless
             displayName: 'Build'  
   - stage: BuildAndPushImage
     displayName: Build and push
