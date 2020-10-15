@@ -27,8 +27,8 @@ stages:
             displayName: 'Setup Environment'
           - script: npm install
             displayName: 'Install Dependencies'
-          - bash: cd $(Build.SourcesDirectory)/front-end/superman/
           - script: |
+              cd $(Build.SourcesDirectory)/front-end/superman/
               npm run ng test --watch=false --karmaConfig karma.conf.ci.js --code-coverage
             displayName: 'Build'  
   - stage: BuildAndPushImage
