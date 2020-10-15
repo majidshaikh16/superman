@@ -15,36 +15,48 @@ pool:
   vmImage: 'ubuntu-latest'
 
 stages:
-  - stage: BuildAndTest
-    displayName: Build and test
+  - stage: BuildAndPushImage
+    displayName: Build and push
     jobs:
-      - job: BuildImage
+      - job: BuildAndPushImage
         displayName: Build docker image
         steps:
-          - bash: echo starting to build superman docker image majidshaikh16/superman:$(Build.BuildId)
+          - bash: echo starting to build superman docker image majidshaikh16/superman:$(tag)
           - task: Docker@2
             displayName: Building an image to docker hub
             inputs:
-              command: 'build'
-              Dockerfile: '$(Build.SourcesDirectory)/front-end/superman/Dockerfile'
-              tags: $(Build.BuildId)
-              arguments: '-t majidshaikh16/superman:$(Build.BuildId)'
-          - bash: echo image build successful majidshaikh16/superman:$(Build.BuildId)
-  - stage: PushImage
-    displayName: Pushing the image to docker hub
-    dependsOn: BuildAndTest
-    jobs:
-      - job: PushImage
-        displayName: Push docker image
-        steps:
-          - bash: echo starting to push the docker image majidshaikh16/superman:$(Build.BuildId)
-          - task: Docker@2
-            inputs:
               containerRegistry: 'majidshaikh16/dockerhub'
               repository: 'majidshaikh16/superman'
-              command: 'push'
-              tags: $(Build.BuildId)
-          - bash: echo pushed the docker image majidshaikh16/superman:$(Build.BuildId)
+              command: 'buildAndPush'
+              Dockerfile: '$(Build.SourcesDirectory)/front-end/superman/Dockerfile'
+              tags: '$(tag)'
+          - bash: echo image build successful majidshaikh16/superman:$(tag) and pushed to $(containerRegistry)
+  - stage: UAT
+    displayName: Some task to perform on UAT
+    dependsOn: BuildAndPushImage
+    jobs:
+      - job: UpdateUat
+        displayName: Deploy to uat
+        steps:
+          - bash: echo starting to update uat with the docker image majidshaikh16/superman:$(tag)
+          - bash: echo success updated docker image majidshaikh16/superman:$(tag)
+  - stage: PPR
+    displayName: Some task to perform on PPR
+    dependsOn: BuildAndPushImage
+    jobs:
+      - job: UpdatePPR
+        displayName: Deploy to PPR
+        steps:
+          - bash: echo starting to update PPR with the docker image majidshaikh16/superman:$(tag)
+          - bash: echo success updated docker image majidshaikh16/superman:$(tag)
+  - stage: CleanUp
+    displayName: Independent cleanup task
+    jobs:
+      - job: CleanUp
+        displayName: Independent clean up
+        steps:
+          - bash: echo starting the clean up...
+          - bash: clean up completed...                
 
 # stages:
 # - stage: Build
