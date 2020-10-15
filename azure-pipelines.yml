@@ -17,12 +17,6 @@ pool:
 
     
 stages:
-  - stage: Install
-    jobs:
-      - job: Npm
-        steps:
-          
-
   - stage: Test
     displayName: Run test coverage
     jobs:
