@@ -15,15 +15,29 @@ pool:
   vmImage: 'ubuntu-latest'
   demands: 
 
+    
 stages:
+  - stage: Install
+    jobs:
+      - job: Npm
+        steps:
+          
+
   - stage: Test
     displayName: Run test coverage
     jobs:
       - job: Test
         steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '10.x'
+            displayName: 'Setup Environment'
+          - script: npm install
+            displayName: 'Install Dependencies'
           - bash: cd $(Build.SourcesDirectory)/front-end/superman/
           - script: |
-              npm run ng test --watch=false --karmaConfig karma.conf.ci.js --code-coverage
+              npx ng test --watch=false --karmaConfig karma.conf.ci.js --code-coverage
+            displayName: 'Build'  
   - stage: BuildAndPushImage
     displayName: Build and push
     dependsOn: Test
