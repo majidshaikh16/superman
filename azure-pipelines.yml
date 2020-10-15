@@ -15,8 +15,17 @@ pool:
   vmImage: 'ubuntu-latest'
 
 stages:
+  - stage: Test
+    displayName: Run test coverage
+    jobs:
+      - job: Test
+        steps:
+          - bash: cd $(Build.SourcesDirectory)/front-end/superman/
+          - script: |
+              npx ng test --watch=false --karmaConfig karma.conf.ci.js --code-coverage
   - stage: BuildAndPushImage
     displayName: Build and push
+    dependsOn: Test
     jobs:
       - job: BuildAndPushImage
         displayName: Build docker image
@@ -56,7 +65,7 @@ stages:
         displayName: Independent clean up
         steps:
           - bash: echo starting the clean up...
-          - bash: clean up completed...                
+          - bash: echo clean up completed...                
 
 # stages:
 # - stage: Build

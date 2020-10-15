@@ -44,3 +44,26 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+front-end/superman/coverage/superman/base.css
+front-end/superman/coverage/superman/block-navigation.js
+front-end/superman/coverage/superman/index.html
+front-end/superman/coverage/superman/lcov.info
+front-end/superman/coverage/superman/prettify.css
+front-end/superman/coverage/superman/prettify.js
+front-end/superman/coverage/superman/sort-arrow-sprite.png
+front-end/superman/coverage/superman/sorter.js
+front-end/superman/coverage/superman/src/index.html
+front-end/superman/coverage/superman/src/polyfills.ts.html
+front-end/superman/coverage/superman/src/test.ts.html
+front-end/superman/coverage/superman/src/app/app.component.ts.html
+front-end/superman/coverage/superman/src/app/index.html
+front-end/superman/coverage/superman/src/app/dashboard/dashboard.component.ts.html
+front-end/superman/coverage/superman/src/app/dashboard/index.html
+front-end/superman/coverage/superman/src/app/login/index.html
+front-end/superman/coverage/superman/src/app/login/login.component.ts.html
+front-end/superman/coverage/superman/src/app/registration/index.html
+front-end/superman/coverage/superman/src/app/registration/registration.component.ts.html
+front-end/superman/node_modules/protractor/node_modules/webdriver-manager/selenium/chrome-response.xml
+front-end/superman/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_86.0.4240.22
+front-end/superman/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_86.0.4240.22.zip
+front-end/superman/node_modules/protractor/node_modules/webdriver-manager/selenium/update-config.json
