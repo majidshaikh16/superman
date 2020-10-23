@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Superman for you! Version 2.4';
+  title = 'Superman for you! Version 2.5';
 }
