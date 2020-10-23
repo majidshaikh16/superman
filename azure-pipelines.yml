@@ -53,7 +53,7 @@ stages:
     dependsOn: BuildAndPushImage
     jobs:
       - job: UpdateUat
-        displayName: Deploy to uat
+        displayName: Some task to perform uat
         steps:
           - bash: echo starting to update uat with the docker image majidshaikh16/superman:$(tag)
           - bash: echo success updated docker image majidshaikh16/superman:$(tag)
@@ -62,7 +62,7 @@ stages:
     dependsOn: BuildAndPushImage
     jobs:
       - job: UpdatePPR
-        displayName: Deploy to PPR
+        displayName: Some task to perform PPR
         steps:
           - bash: echo starting to update PPR with the docker image majidshaikh16/superman:$(tag)
           - bash: echo success updated docker image majidshaikh16/superman:$(tag)
